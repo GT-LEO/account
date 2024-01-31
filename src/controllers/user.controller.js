@@ -10,7 +10,12 @@ userController.createOne = async(req,res) => {
         console.log(req.body);
         const existingUser = await userModel.findOne({email:email});
         if(existingUser){
-            return res.status(400).json({message:"email already exist!"});
+            return res.status(400).json({
+                message:"email already exist!",
+               status:"error",
+               statusCode:400 ,
+        
+            });
         }
         const user = await userModel.create({firstName, lastName, userName, password, email });
         return res.status(200).json({
@@ -23,10 +28,17 @@ userController.createOne = async(req,res) => {
     }
     catch(e){
         console.log(e);
-        return res.status(400).json({message:"Internal Server Error!"});
+        return res.status(400).json({
+        message:"Internal Server Error!",
+        status:"error",
+        statusCode:400 ,
+ 
+    })
     }
 };
 module.exports = userController;
+
+
 
 
 //login a user
